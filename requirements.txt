@@ -7,3 +7,4 @@ pillow==9.3.0
 flask==3.0.3
 numpy==1.24.3
 deep-translator==1.11.4
+gunicorn
