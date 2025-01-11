@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Try It Out - Forward Flow</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      .visual-forward-flow {
+        text-align: center;
+      }
+      table {
+        margin: 0 auto;
+        border-collapse: collapse;
+        width: 80%;
+      }
+      th,
+      td {
+        border: 1px solid black;
+        padding: 8px;
+        text-align: center;
+      }
+      th {
+        background-color: #f2f2f2;
+      }
+      .calculate-similarity {
+        margin-top: 20px;
+        padding: 10px 20px;
+        background-color: #333;
+        color: white;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+      }
+      .calculate-similarity:hover {
+        background-color: #555;
+      }
+      .dropdown {
+        margin-top: 20px;
+      }
+      select {
+        padding: 5px;
+        font-size: 16px;
+      }
+      .results {
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <h1>Forward Flow</h1>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="page2.html">About Forward Flow</a></li>
+          <li><a href="page3.html">Try it out</a></li>
+          <li><a href="page4.html">Analyze data</a></li>
+          <li><a href="page5.html">Visual Creativity</a></li>
+          <li><a href="page6.html">Visual Forward Flow</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main class="main">
+      <section class="visual-forward-flow">
+        <h2><strong>What is your Visual forward flow?</strong></h2>
+        <p>
+          <strong>
+            Beginning with the word <span id="starting-word">sleep</span>, in
+            each of the following blanks, write the next word that comes to mind
+            from the previous word. Please use only single words and no proper
+            nouns.
+          </strong>
+        </p>
+        <form id="img-text-form">
+          <div class="image-selection">
+            <label for="image-options">Choose an Image:</label>
+            <select id="image-options">
+              <option value="img1.jpg" selected>Image 1</option>
+              <option value="img2.jpg">Image 2</option>
+              <option value="img3.jpg">Image 3</option>
+              <option value="img4.jpg">Image 4</option>
+              <option value="img5.jpg">Image 5</option>
+            </select>
+          </div>
+          <img
+            id="selected-image"
+            src=""
+            alt="Selected Image"
+            class="center"
+            style="
+              display: none;
+              margin-top: 20px;
+              max-width: 30%;
+              height: auto;
+            "
+          />
+
+          <div class="text-input">
+            <br />
+            <br />
+            <h2><b>Enter sentences</b></h2>
+
+            <table>
+              <tr>
+                <th>Sentence</th>
+                <th>Input</th>
+              </tr>
+              <tr>
+                <td>sentence 1</td>
+                <td><input type="text" name="sentence 1" /></td>
+              </tr>
+              <tr>
+                <td>sentence 2</td>
+                <td><input type="text" name="sentence 2" /></td>
+              </tr>
+              <tr>
+                <td>sentence 3</td>
+                <td><input type="text" name="sentence 3" /></td>
+              </tr>
+              <tr>
+                <td>sentence 4</td>
+                <td><input type="text" name="sentence 4" /></td>
+              </tr>
+              <tr>
+                <td>sentence 5</td>
+                <td><input type="text" name="sentence 5" /></td>
+              </tr>
+              <tr>
+                <td>sentence 6</td>
+                <td><input type="text" name="sentence 6" /></td>
+              </tr>
+              <tr>
+                <td>sentence 7</td>
+                <td><input type="text" name="sentence 7" /></td>
+              </tr>
+              <tr>
+                <td>sentence 8</td>
+                <td><input type="text" name="sentence 8" /></td>
+              </tr>
+              <tr>
+                <td>sentence 9</td>
+                <td><input type="text" name="sentence 9" /></td>
+              </tr>
+              <tr>
+                <td>sentence 10</td>
+                <td><input type="text" name="sentence 10" /></td>
+                <br />
+                <br />
+              </tr>
+            </table>
+          </div>
+          <br />
+          <button
+            class="calculate-similarity"
+            onclick="calculatesimilarity(event)"
+          >
+            Calculate Visual Forward Flow
+          </button>
+        </form>
+
+        <div class="results">
+          <h3>Similarity Scores</h3>
+          <table id="results-table">
+            <thead>
+              <tr>
+                <th>Sentence ID</th>
+                <th>Score</th>
+                <!-- Table headers will be appended here -->
+              </tr>
+            </thead>
+            <tbody>
+              <!-- score will be appended here -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+    <footer class="footer">
+      <p>Copyright &copy; 2024 Forward Flow</p>
+    </footer>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const imageSelect = document.getElementById("image-options");
+        const selectedImage = document.getElementById("selected-image");
+
+        selectedImage.src = imageSelect.value;
+        selectedImage.style.display = "block";
+
+        imageSelect.addEventListener("change", function () {
+          const imagePath = imageSelect.value;
+          selectedImage.src = imagePath;
+          selectedImage.style.display = "block";
+        });
+
+        function calculatesimilarity(event) {
+          event.preventDefault();
+
+          const form = document.getElementById("img-text-form");
+
+          // Collect form data
+
+          // Collect form data
+          const formData = new FormData(form);
+          const image = document.getElementById("image-options").value; // Get image path directly from the select element
+
+          //const image = formData.get("image-options"); // Updated this line to correctly retrieve image URL
+          console.log(image);
+          console.log("img was null");
+          const sentences = Array.from(formData.entries())
+            .filter(
+              ([key, value]) =>
+                key.startsWith("sentence") && value.trim() !== ""
+            )
+            .map(([key, value]) => value);
+
+          fetch("/image_text", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ image, sentences }),
+          })
+            .then((response) => {
+              if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+              }
+              const contentType = response.headers.get("content-type");
+              if (!contentType || !contentType.includes("application/json")) {
+                throw new TypeError("Response not in JSON format");
+              }
+              return response.json();
+            })
+            .then((data) => {
+              console.log("Similarity scores:", data.scores);
+              const scores = data.scores;
+              displayScores(data.scores);
+            })
+            .catch((error) => {
+              console.error("Error:", error);
+              alert(
+                "An error occurred while calculating similarity. Please try again later."
+              );
+            });
+        }
+
+        function displayScores(scores) {
+          const resultsTable = document
+            .getElementById("results-table")
+            .getElementsByTagName("tbody")[0];
+          resultsTable.innerHTML = ""; // Clear previous results
+
+          scores.forEach((score, index) => {
+            const tr = document.createElement("tr");
+
+            const imageTd = document.createElement("td");
+            imageTd.textContent = `Sentence ${index + 1}`;
+            tr.appendChild(imageTd);
+
+            const scoreTd = document.createElement("td");
+            scoreTd.textContent = score.toFixed(3);
+            tr.appendChild(scoreTd);
+
+            resultsTable.appendChild(tr);
+          });
+        }
+
+        document
+          .querySelector(".calculate-similarity")
+          .addEventListener("click", calculatesimilarity);
+      });
+    </script>
+
+    <script src="script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Try It Out - Forward Flow</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      .forward-flow-test {
+        text-align: center;
+      }
+      table {
+        margin: 0 auto;
+        border-collapse: collapse;
+        width: 80%;
+      }
+      th,
+      td {
+        border: 1px solid black;
+        padding: 8px;
+        text-align: center;
+      }
+      th {
+        background-color: #f2f2f2;
+      }
+      .plot-creativity {
+        margin-top: 20px;
+        padding: 10px 20px;
+        background-color: #333;
+        color: white;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+      }
+      .plot-creativity:hover {
+        background-color: #555;
+      }
+      .graph {
+        margin-top: 20px;
+        padding: 10px 20px;
+        background-color: #333;
+        color: white;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+      }
+      .graph:hover {
+        background-color: #555;
+      }
+      .dropdown {
+        margin-top: 20px;
+      }
+      select {
+        padding: 5px;
+        font-size: 16px;
+      }
+      .results {
+        margin-top: 20px;
+      }
+      #image-container {
+        margin-top: 20px;
+        display: none;
+      }
+      #image-container img {
+        max-width: 30%;
+        height: auto;
+      }
+      .large-input {
+        width: 600px; /* Adjust the width as needed */
+        height: 10px; /* Adjust the height as needed */
+        font-size: 12px; /* Adjust the font size as needed */
+        padding: 6px; /* Adjust the padding as needed */
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <h1>Forward Flow</h1>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="page2.html">About Forward Flow</a></li>
+          <li><a href="page3.html">Try it out</a></li>
+          <li><a href="page4.html">Analyze data</a></li>
+          <li><a href="page5.html">Visual Creativity</a></li>
+          <li><a href="page6.html">Visual Forward Flow</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main class="main">
+      <section class="forward-flow-test">
+        <h2><strong>What is your forward flow?</strong></h2>
+        <p>
+          <strong>
+            Beginning with the word <span id="starting-word">sleep</span>, in
+            each of the following blanks, write the next word that comes to mind
+            from the previous word. Please use only single words and no proper
+            nouns.
+          </strong>
+        </p>
+        <form id="word-form">
+          <p>Starting word: <strong id="starting-word-text">sleep</strong></p>
+          <table>
+            <tr>
+              <th>Word</th>
+              <th>Input</th>
+            </tr>
+            <tr>
+              <td>Word 1</td>
+              <td>
+                <input
+                  type="text"
+                  name="word1"
+                  id="word1"
+                  value="sleep"
+                  class="large-input"
+                  readonly
+                />
+              </td>
+            </tr>
+            <tr>
+              <td>Word 2</td>
+              <td><input type="text" name="word2" class="large-input" /></td>
+            </tr>
+            <tr>
+              <td>Word 3</td>
+              <td><input type="text" name="word3" class="large-input" /></td>
+            </tr>
+            <tr>
+              <td>Word 4</td>
+              <td><input type="text" name="word4" class="large-input" /></td>
+            </tr>
+            <tr>
+              <td>Word 5</td>
+              <td><input type="text" name="word5" class="large-input" /></td>
+            </tr>
+            <tr>
+              <td>Word 6</td>
+              <td><input type="text" name="word6" class="large-input" /></td>
+            </tr>
+            <tr>
+              <td>Word 7</td>
+              <td><input type="text" name="word7" class="large-input" /></td>
+            </tr>
+            <tr>
+              <td>Word 8</td>
+              <td><input type="text" name="word8" class="large-input" /></td>
+            </tr>
+            <tr>
+              <td>Word 9</td>
+              <td><input type="text" name="word9" class="large-input" /></td>
+            </tr>
+            <tr>
+              <td>Word 10</td>
+              <td><input type="text" name="word10" class="large-input" /></td>
+            </tr>
+          </table>
+          <div class="dropdown">
+            <label for="word-options">Choose a word list:</label>
+            <select id="word-options">
+              <option value="sleep">Sleep</option>
+              <option value="I am dreaming of ships">
+                I am dreaming of ships
+              </option>
+              <option value="rest">Rest</option>
+              <option value="nap">Nap</option>
+              <option value="joy">Joy</option>
+              <option value="fear">Fear</option>
+              <option value="anger">Anger</option>
+              <option value="love">Love</option>
+              <option value="hope">Hope</option>
+              <option value="sadness">Sadness</option>
+              <option value="peace">Peace</option>
+              <option value="conflict">Conflict</option>
+              <option value="freedom">Freedom</option>
+              <option value="guilt">Guilt</option>
+              <option value="happiness">Happiness</option>
+              <option value="trust">Trust</option>
+              <option value="grief">Grief</option>
+              <option value="surprise">Surprise</option>
+              <option value="boredom">Boredom</option>
+              <option value="toaster">toaster</option>
+              <option value="excitement">Excitement</option>
+              <option value="curiosity">Curiosity</option>
+            </select>
+          </div>
+          <button class="plot-creativity" onclick="plotCreativity(event)">
+            Plot the Creativity
+          </button>
+          <br />
+          <a href="graph.html">
+            <button class="graph" type="button">Graph</button>
+          </a>
+        </form>
+
+        <div class="results">
+          <h3>Similarity Matrix</h3>
+          <table id="results-table">
+            <thead>
+              <tr>
+                <th></th>
+                <!-- Table headers will be appended here -->
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Matrix will be appended here -->
+            </tbody>
+          </table>
+          <h3>Serial Scores</h3>
+          <table id="serial-scores-table">
+            <thead>
+              <tr>
+                <th>Word</th>
+                <th>Serial Score</th>
+                <th>Sentiment</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Serial scores will be appended here -->
+            </tbody>
+          </table>
+          <h2>Forward Flow Score</h2>
+          <p id="forward-flow-score"></p>
+        </div>
+      </section>
+    </main>
+    <footer class="footer">
+      <p>Copyright &copy; 2024 Forward Flow</p>
+    </footer>
+
+    <script>
+      // JavaScript to update the word1 value based on the dropdown selection
+      document
+        .getElementById("word-options")
+        .addEventListener("change", function () {
+          const selectedWord = this.value;
+          document.getElementById("word1").value = selectedWord;
+          document.getElementById("starting-word-text").textContent =
+            selectedWord;
+        });
+
+      let serialsentencearray = [];
+
+      function plotCreativity(event) {
+        event.preventDefault(); // Prevent the form from submitting normally
+
+        // Collect form data
+        const form = document.getElementById("word-form");
+        const formData = new FormData(form);
+        const sentences = Array.from(formData.values());
+
+        // Send data to the backend
+        fetch("/similarity", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ sentences }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log("Similarity matrix:", data.matrix);
+            console.log("Serial score:", data.serial_score);
+            console.log("Sentiment:", data.sentiments);
+
+            serialsentencearray = data.serial_score.map((score, index) => {
+              return { serial_score: score, sentence: sentences[index] };
+            });
+            displayMatrix(data.matrix, sentences);
+            displaySerialScore(data.serial_score, sentences, data.sentiments);
+            displayForwardFlowScore(data.serial_score);
+
+            navigateToGraph(data.serial_score, sentences);
+          })
+          .catch((error) => console.error("Error:", error));
+      }
+
+      function displayMatrix(matrix, sentences) {
+        const resultsTable = document.getElementById("results-table");
+        const thead = resultsTable.getElementsByTagName("thead")[0];
+        const tbody = resultsTable.getElementsByTagName("tbody")[0];
+
+        // Clear previous results
+        thead.innerHTML = "<tr><th></th></tr>";
+        tbody.innerHTML = "";
+
+        // Append headers
+        sentences.forEach((sentence) => {
+          const th = document.createElement("th");
+          th.textContent = sentence;
+          thead.getElementsByTagName("tr")[0].appendChild(th);
+        });
+
+        // Append matrix values
+        matrix.forEach((row, i) => {
+          const tr = document.createElement("tr");
+          const rowHeader = document.createElement("th");
+          rowHeader.textContent = sentences[i];
+          tr.appendChild(rowHeader);
+
+          row.forEach((value) => {
+            const td = document.createElement("td");
+            td.textContent = value.toFixed(2); // Format score to 2 decimal places
+            tr.appendChild(td);
+          });
+
+          tbody.appendChild(tr);
+        });
+      }
+
+      function displaySerialScore(scores, sentences, sentiments) {
+        const scoresTable = document.getElementById("serial-scores-table");
+        const tbody = scoresTable.getElementsByTagName("tbody")[0];
+
+        tbody.innerHTML = "";
+
+        sentences.forEach((sentence, index) => {
+          const tr = document.createElement("tr");
+
+          const wordTd = document.createElement("td");
+          wordTd.textContent = sentence;
+          tr.appendChild(wordTd);
+
+          const scoreTd = document.createElement("td");
+          scoreTd.textContent = scores[index].toFixed(2); // Format score to 2 decimal places
+          tr.appendChild(scoreTd);
+
+          const sentimentTd = document.createElement("td");
+          sentimentTd.textContent = sentiments[index];
+          tr.appendChild(sentimentTd);
+
+          tbody.appendChild(tr);
+        });
+      }
+
+      function displayForwardFlowScore(scores) {
+        const forwardFlowScoreElement =
+          document.getElementById("forward-flow-score");
+
+        const total = scores.reduce((sum, score) => sum + score, 0);
+        const average = total / 9;
+
+        forwardFlowScoreElement.textContent = average.toFixed(3);
+      }
+
+      // Add event listener to the button
+      document
+        .querySelector(".plot-creativity")
+        .addEventListener("click", plotCreativity);
+    </script>
+
+    <script src="script.js"></script>
+  </body>
+</html>

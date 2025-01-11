@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Analyze Data - Forward Flow</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      .analyze-button,
+      .upload-button {
+        font-size: 1.2em; /* Increase button font size */
+        padding: 10px 20px; /* Increase button padding */
+        margin-top: 10px;
+        background-color: #333;
+        color: white;
+        border: none;
+        border-radius: 5px;
+      }
+
+      .analyze-button:hover,
+      .upload-button:hover {
+        background-color: #555;
+      }
+
+      .file-upload input[type="file"] {
+        font-size: 1em; /* Increase font size for file input */
+        margin-top: 10px;
+      }
+
+      .manual-entry textarea {
+        width: 50%; /* Full width for better responsiveness */
+        font-size: 0.9em; /* Decrease font size for the textarea */
+      }
+
+      .manual-entry h3,
+      .file-upload h3 {
+        font-size: 1em; /* Adjust the heading size if needed */
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <h1>Forward Flow</h1>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="page2.html">About Forward Flow</a></li>
+          <li><a href="page3.html">Try it out</a></li>
+          <li><a href="page4.html">Analyze data</a></li>
+          <li><a href="page5.html">Visual Creativity</a></li>
+          <li><a href="page6.html">Visual Forward Flow</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main class="main">
+      <section class="analyze-data">
+        <h2>Analyze Data</h2>
+        <p><em> Enter a list or upload a file </em></p>
+        <p>
+          On this page, you can retrieve a matrix of semantic distances for any
+          given word list that you manually enter (on the left). <br />You can
+          also upload a csv file with free associations (on the right) and
+          retrieve matrices, <br />
+          flow summaries, and serial flow vectors (to construct thought plots).
+          See the readme file for more information.
+        </p>
+        <div class="data-entry">
+          <div class="manual-entry">
+            <h3>
+              Enter a list of words, separated by a comma and/or a new line.
+            </h3>
+            <textarea name="wordlist" rows="5" cols="10"></textarea>
+            <button class="analyze-button" onclick="analyzeData(event)">
+              Analyze
+            </button>
+          </div>
+          <div class="file-upload">
+            <h3>
+              Upload a file with a list of words & download the results as a csv
+              file. Note that the analyzer expects a header in the file.
+            </h3>
+            <input type="file" name="file" />
+            <button class="upload-button" onclick="uploadAndAnalyze(event)">
+              Upload & Analyze
+            </button>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="footer">
+      <p>Copyright &copy; 2024 Forward Flow</p>
+    </footer>
+  </body>
+</html>

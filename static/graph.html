@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Your Thought Plot</title>
+    <style>
+      body {
+        font-family: "Helvetica Neue", sans-serif;
+        background-color: #ffffff;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        color: #333;
+      }
+      .heading {
+        text-align: center;
+        font-size: 52px;
+        font-weight: bold;
+        margin-top: -200px;
+      }
+      .subheading {
+        text-align: center;
+        font-size: 34px;
+        margin-bottom: 40px;
+      }
+      .container {
+        width: 90%;
+        max-width: 800px;
+        height: 500px;
+        position: relative;
+      }
+      #graphCanvas {
+        width: 100%;
+        height: 100%;
+      }
+      .axis-label {
+        color: #000;
+        font-weight: bold;
+        transition: font-size 0.2s ease-in-out;
+      }
+      .y-axis-label {
+        position: absolute;
+        top: 50%;
+        left: -90px;
+        transform: translateY(-50%) rotate(-90deg);
+      }
+      .x-axis-label {
+        position: absolute;
+        bottom: -60px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="heading">Your Thought Plot</div>
+    <div class="subheading">Forward Flow: Custom Plot</div>
+    <div class="container">
+      <canvas id="graphCanvas" width="800" height="500"></canvas>
+      <div class="y-axis-label axis-label">Forward Flow</div>
+      <div class="x-axis-label axis-label">Words</div>
+    </div>
+
+    <script>
+      const canvas = document.getElementById("graphCanvas");
+      const ctx = canvas.getContext("2d");
+
+      // Get values from the URL
+      const urlParams = new URLSearchParams(window.location.search);
+      const xValues = urlParams
+        .get("xValues")
+        .split(",")
+        .map((val) => val.trim());
+      const yValues = urlParams
+        .get("yValues")
+        .split(",")
+        .map((val) => parseFloat(val.trim()));
+
+      const maxValues = 12;
+      const displayValues =
+        xValues.length > maxValues ? xValues.slice(0, maxValues) : xValues;
+      const displayYValues =
+        yValues.length > maxValues ? yValues.slice(0, maxValues) : yValues;
+
+      const padding = 70;
+      const extraPadding = 20;
+      const xExtend = canvas.width * 0.05;
+      const graphWidth = canvas.width - padding * 2 + xExtend + extraPadding;
+      const graphHeight = canvas.height - padding * 2;
+
+      // Adjust font size based on the number of x-values
+      const maxFontSize = 32;
+      const minFontSize = 14;
+      const fontSize = Math.max(
+        minFontSize,
+        maxFontSize - displayValues.length * 1.5
+      );
+      ctx.font = `${fontSize}px Helvetica Neue`;
+
+      // Update the axis labels' font size
+      document.querySelectorAll(".axis-label").forEach((label) => {
+        label.style.fontSize = `${fontSize}px`;
+      });
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Draw Y axis line
+      ctx.beginPath();
+      ctx.moveTo(padding, padding);
+      ctx.lineTo(padding, canvas.height - padding + extraPadding);
+      ctx.strokeStyle = "#000";
+      ctx.lineWidth = 3;
+      ctx.stroke();
+
+      ctx.fillStyle = "#000";
+      ctx.textAlign = "right";
+      ctx.fillText(
+        "0",
+        padding - 10,
+        canvas.height - padding + 10 + extraPadding
+      );
+      ctx.fillText("1", padding, padding + 10);
+
+      // Draw y-axis values
+      const ySteps = 5;
+      for (let i = 1; i < ySteps; i++) {
+        const yValue = (i / ySteps).toFixed(2);
+        const yPos =
+          canvas.height - padding - yValue * graphHeight + extraPadding;
+        ctx.fillText(yValue, padding - 10, yPos + 5);
+      }
+
+      // Draw X axis line
+      ctx.beginPath();
+      ctx.moveTo(padding, canvas.height - padding + extraPadding);
+      ctx.lineTo(
+        canvas.width - padding + xExtend,
+        canvas.height - padding + extraPadding
+      );
+      ctx.strokeStyle = "#000";
+      ctx.lineWidth = 3;
+      ctx.stroke();
+
+      // Plot points and draw line
+      const xStep = graphWidth / (displayValues.length - 1);
+      ctx.beginPath();
+      ctx.strokeStyle = "#000";
+      ctx.lineWidth = 3;
+      ctx.moveTo(
+        padding,
+        canvas.height - padding - displayYValues[0] * graphHeight + extraPadding
+      );
+      displayYValues.forEach((value, index) => {
+        const x = padding + index * xStep;
+        const y = canvas.height - padding - value * graphHeight + extraPadding;
+        ctx.lineTo(x, y);
+      });
+      ctx.stroke();
+
+      // Draw points and labels
+      ctx.fillStyle = "#000";
+      displayYValues.forEach((value, index) => {
+        const x = padding + index * xStep;
+        const y = canvas.height - padding - value * graphHeight + extraPadding;
+        ctx.beginPath();
+        ctx.arc(x, y, 6, 0, 2 * Math.PI);
+        ctx.fill();
+        ctx.textAlign = "center";
+        ctx.fillText(
+          displayValues[index],
+          x,
+          canvas.height - padding + 30 + extraPadding
+        );
+      });
+    </script>
+  </body>
+</html>
