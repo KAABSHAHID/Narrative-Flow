@@ -9,7 +9,7 @@ Created on Fri Jul 19 17:29:08 2024
 
 import os
 import sys
-sys.path.append(os.path.abspath(r'C:/Users/mkaab/BLIP'))
+sys.path.append(os.path.abspath(r'BLIP'))
 from textblob import TextBlob
 from sentence_transformers import SentenceTransformer, util
 from PIL import Image
