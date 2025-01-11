@@ -2,7 +2,7 @@
 torch
 torchvision
 textblob==0.18.0.post0
-sentence-transformers==2.2.2
+sentence-transformers
 pillow==9.3.0
 flask==3.0.3
 numpy==1.24.3
