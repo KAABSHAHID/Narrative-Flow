@@ -1,4 +1,4 @@
-extra-index-url https://download.pytorch.org/whl/cu121
+--extra-index-url https://download.pytorch.org/whl/cu121
 torch
 torchvision
 textblob==0.18.0.post0
