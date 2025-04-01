@@ -161,12 +161,15 @@ def img_text():
     #print('text: %s' %sentences)
     score = []
     for sentence in sentences:
-        itm_output = model(image,sentence,match_head='itm')
-        #itm_score = torch.nn.functional.softmax(itm_output,dim=1)[:,1]
-        itm_score = torch.nn.functional.softmax(itm_output, dim=1)[:, 1].item()  # Convert tensor to Python float
-        print('The image and text is matched with a probability of %.4f'%itm_score)
-        score.append(itm_score)
-        
+        with torch.no_grad():
+            itm_output = model(image, sentence, match_head='itm')
+            itm_score = torch.nn.functional.softmax(itm_output, dim=1)[:, 1].item()
+            score.append(itm_score)
+
+        del itm_output
+        torch.cuda.empty_cache()  # Only needed if running on CUDA
+    
+    del model, image        
     return jsonify(scores=score)
 
 
