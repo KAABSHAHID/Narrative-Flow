@@ -155,7 +155,7 @@ def img_text():
     model = blip_itm(pretrained=model_url, image_size=image_size, vit='base')
     model.eval()
     #model = model.to(device='cpu')
-    model = model.to('cuda')
+    #model = model.to('cuda')
 
     #caption = 'a cute kitten with orange color'
     #print('text: %s' %sentences)
